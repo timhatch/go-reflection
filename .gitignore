@@ -1,0 +1,10 @@
+.env
+.docker_build/
+bin/
+
+# MacOS cruft
+.DS_Store
+
+# VIM cruft
+*.swo
+*.swp
