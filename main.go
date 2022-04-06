@@ -1,7 +1,6 @@
 package main
 
 import (
-	"io"
 	"log"
 	"net/http"
 	"os"
@@ -9,28 +8,34 @@ import (
 
 type app struct{}
 
-func (a *app) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	status := http.StatusOK
-	keys := r.URL.Query()["key"]
-	msg := "dunia"
-	if len(keys) > 0 {
-		msg = (keys[0])
+// serveWs handles websocket requests from the peer.
+func serveWsChat(hub *Hub, w http.ResponseWriter, r *http.Request) {
+	conn, err := upgrader.Upgrade(w, r, nil)
+	if err != nil {
+		log.Println(err)
+		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(status)
+	client := &Client{hub: hub, conn: conn, send: make(chan []byte, 256)}
+	client.hub.register <- client
 
-	body := `{"Message": "Hello ` + msg + `"}` + "\n"
-	io.WriteString(w, body)
-	log.Printf("\"%s %s %s\" %d %d\n", r.Method, r.URL.Path, r.Proto, status, len(body))
+	// Allow collection of memory referenced by the caller by doing all work in
+	// new goroutines.
+	go client.writePump()
+	go client.readPump()
 }
 
 func main() {
 	port, ok := os.LookupEnv("PORT")
 
 	if !ok {
-		port = "8080"
+		port = "80"
 	}
+
+	// Create and run the message handling hub
+	// Implementation ile: ./hub.go
+	hub := New()
+	go hub.run()
 
 	// Handle static files from a non-standard location
 	// fs := http.FileServer(http.Dir("public/"))
@@ -58,6 +63,13 @@ func main() {
 
 	http.HandleFunc("/timers.html", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "./static/timers.html")
+	})
+
+	// route `/ws`
+	// Handle clients connecting to the `/ws` route
+	// Implementation file: ./client.go
+	http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
+		serveWsChat(hub, w, r)
 	})
 
 	log.Printf("Starting server on port %s\n", port)
