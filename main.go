@@ -41,7 +41,7 @@ func main() {
 			return
 		}
 
-		http.ServeFile(w, r, "./public/index.html")
+		http.ServeFile(w, r, "./static/index.html")
 	})
 
 	log.Printf("Starting server on port %s\n", port)
