@@ -38,8 +38,8 @@ func main() {
 	go hub.run()
 
 	// Handle static files from a non-standard location
-	// fs := http.FileServer(http.Dir("public/"))
-	// http.Handle("/static/", http.StripPrefix("/static/", fs))
+	fs := http.FileServer(http.Dir("public/"))
+	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
 	// route `/`
 	// Handle http connections
@@ -50,19 +50,19 @@ func main() {
 			return
 		}
 
-		http.ServeFile(w, r, "./static/index.html")
+		http.ServeFile(w, r, "./public/index.html")
 	})
 
 	http.HandleFunc("/index.html", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "./static/index.html")
+		http.ServeFile(w, r, "./public/index.html")
 	})
 
 	http.HandleFunc("/client.html", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "./static/client.html")
+		http.ServeFile(w, r, "./public/client.html")
 	})
 
 	http.HandleFunc("/timers.html", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "./static/timers.html")
+		http.ServeFile(w, r, "./public/timers.html")
 	})
 
 	// route `/ws`

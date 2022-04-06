@@ -1,0 +1,39 @@
+<!DOCTYPE html><html><head>
+    <meta charset="utf-8">
+    <title>Network Timer</title>
+    <!-- Your application must load the Roboto and Material Icons fonts. -->
+    <link href="/static/css/timers.css" rel="stylesheet" type="text/css">
+    
+  </head>
+  <body>
+    <div class="flex container">
+      <div class="flex panel">
+        <h3>Network Timer</h3>
+        <mwc-select required="" value="0" label="Timer Type" id="type">
+          <mwc-list-item value="0">Rotation</mwc-list-item>
+          <mwc-list-item value="1">Countdown</mwc-list-item>
+          <mwc-list-item value="2">Hybrid</mwc-list-item>
+        </mwc-select> 
+        <mwc-select required="" value="300" label="Climbing Period" id="c_pd">
+          <mwc-list-item value="120">2mn</mwc-list-item>
+          <mwc-list-item value="240">4mn</mwc-list-item>
+          <mwc-list-item value="300">5mn</mwc-list-item>
+          <mwc-list-item value="360">6mn</mwc-list-item>
+        </mwc-select>     
+        <mwc-select required="" value="15" label="Interval Period" id="i_pd">
+          <mwc-list-item value="0">None</mwc-list-item>
+          <mwc-list-item value="15">15s</mwc-list-item>
+        </mwc-select> 
+        <div class="flex row" id="test">
+          <mwc-button outlined="" id="start" label="start"></mwc-button>
+          <mwc-button disabled="" outlined="" id="close" label="cancel"></mwc-button>
+        </div>
+        <div class="timer" id="timer">0.00</div>
+      </div>
+    </div>
+    
+  
+
+    <script type="module" src="/static/js/inline-module-2f2a18d0a8185bd0d3a77031a8643c92.js"></script>
+    <script type="module" src="/static/js/inline-module-5a6b1e62f8db5ea5cf83151a01c373b0.js"></script>
+</body></html>

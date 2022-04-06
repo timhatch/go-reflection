@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+/* General styles */
+html, body {
+  margin      : 0;
+  padding     : 0;
+  width       : 100%;
+
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+}
+
+/* Link style */
+a {
+  text-decoration:  none;
+  text-transform:   uppercase;
+  color:            black;
+}
+
+/*  */
+.center {
+  display:          flex;
+  flex-direction:   column;
+  justify-content:  center;
+  align-items:      center;
+
+  height:           100vh;
+}
+
+.spacer {
+  height:           6rem;
+}
+

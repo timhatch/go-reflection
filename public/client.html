@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <title>Display Client</title>
+  <link href="/static/css/client.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+  <div class="flex container">
+    <div class="flex timer" id="inner">0:00</div>
+  </div>
+  <script type="module">
+    import {socket}   from "/static/js/app-events.js"
+    import {onResize} from "/static/js/display-utils.js"
+
+    // The display element
+    const el = document.getElementById("inner")
+
+    // Event listeners
+    socket.onmessage = (event) => el.textContent = event.data
+    window.onresize = () => onResize(el)
+  </script>
+</body>
+
+
