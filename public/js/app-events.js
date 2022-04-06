@@ -2,7 +2,7 @@ import AudioCTX, {signal} from "./audiosignal.js"
 
 // const compose = (...fns) => (initialVal) => fns.reduceRight((val, fn) => fn(val), initialVal)
 
-export const socket = new WebSocket(`ws://${window.location.hostname}/ws`)
+export const socket = new WebSocket(`wss://${window.location.hostname}/ws`)
 // export const socket = new WebSocket(`ws://rhapsody.local/ws`)
 
 export function eventHandler() {
