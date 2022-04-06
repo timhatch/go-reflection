@@ -32,6 +32,10 @@ func main() {
 		port = "8080"
 	}
 
+	// Handle static files from a non-standard location
+	// fs := http.FileServer(http.Dir("public/"))
+	// http.Handle("/static/", http.StripPrefix("/static/", fs))
+
 	// route `/`
 	// Handle http connections
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
@@ -42,6 +46,18 @@ func main() {
 		}
 
 		http.ServeFile(w, r, "./static/index.html")
+	})
+
+	http.HandleFunc("/index.html", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "./static/index.html")
+	})
+
+	http.HandleFunc("/client.html", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "./static/client.html")
+	})
+
+	http.HandleFunc("/timers.html", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "./static/timers.html")
 	})
 
 	log.Printf("Starting server on port %s\n", port)
