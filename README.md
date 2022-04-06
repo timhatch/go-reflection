@@ -1,6 +1,6 @@
 # go-reflection
 
-A barebones Go app for Heroku deployment. Modified from the [Getting Started with Go on Heroku](https://devcenter.heroku.com/articles/getting-started-with-go) article .
+A barebones Go app for Heroku deployment. Modified from the [Getting Started with Go on Heroku](https://devcenter.heroku.com/articles/getting-started-with-go) article and the linked [Go Getting Started](https://github.com/heroku/go-getting-started.git) repository.
 
 ## Running Locally
 
