@@ -32,9 +32,18 @@ func main() {
 		port = "8080"
 	}
 
-	log.Printf("Starting server on port %s\n", port)
+	// route `/`
+	// Handle http connections
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		// Deny requests to anything other than the root URL
+		if r.URL.Path != "/" {
+			http.Error(w, "Not found", http.StatusNotFound)
+			return
+		}
 
-	if err := http.ListenAndServe(":"+port, &app{}); err != nil {
-		log.Fatalf("Could not start server: %s\n", err.Error())
-	}
+		http.ServeFile(w, r, "./public/index.html")
+	})
+
+	log.Printf("Starting server on port %s\n", port)
+	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
