@@ -16,7 +16,10 @@
     const el = document.getElementById("inner")
 
     // Event listeners
-    socket.onmessage = (event) => el.textContent = event.data
+    socket.onmessage = (event) => {
+      console.log(event.data)
+      el.textContent = event.data
+    }
     window.onresize = () => onResize(el)
   </script>
 </body>
