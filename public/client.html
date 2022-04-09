@@ -17,7 +17,7 @@
 
     // Event listeners
     socket.onmessage = (event) => {
-      console.log(event.data)
+      console.log(`${event.data} ${event.timeStamp}`)
       el.textContent = event.data
     }
     window.onresize = () => onResize(el)
